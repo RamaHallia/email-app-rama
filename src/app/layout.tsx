@@ -4,7 +4,7 @@ import { Roboto, Inter } from 'next/font/google';
 import '../styles/globals.css';
 import { Providers } from './providers';
 
-export const thunder = localFont({
+const thunder = localFont({
     src: [
         {
             path: './(fonts)/thunder-lc.ttf',
@@ -21,13 +21,13 @@ export const thunder = localFont({
     display: 'swap',
 });
 
-export const roboto = Roboto({
+const roboto = Roboto({
     subsets: ['latin'],
     weight: ['300', '400', '500', '600'],
     variable: '--font-roboto',
 });
 
-export const inter = Inter({
+const inter = Inter({
     subsets: ['latin'],
     weight: ['300', '400', '500', '600', '700', '800', '900'],
     variable: '--font-inter',

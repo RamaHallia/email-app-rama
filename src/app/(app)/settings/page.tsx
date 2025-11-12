@@ -26,11 +26,7 @@ interface Document {
     name: string;
 }
 
-interface SettingsNewProps {
-    onNavigateToEmailConfig?: () => void;
-}
-
-export default function Settings({ onNavigateToEmailConfig }: SettingsNewProps = {}) {
+export default function Settings() {
     const router = useRouter();
     const { user } = useAuth();
     const [accounts, setAccounts] = useState<EmailAccount[]>([]);
