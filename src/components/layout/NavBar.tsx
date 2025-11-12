@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ComponentPropsWithoutRef, useEffect, useState } from 'react';
 import { LoginModal } from '../LoginModal';
+import { useAuth } from '../../../context/AuthContext';
 
 type ButtonLinkProps = {
   text: string;
@@ -112,7 +113,19 @@ function ButtonLink({
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
+  const handleLogout = async () => {
+    await signOut();
+    setIsOpen(false);
+    setIsUserMenuOpen(false);
+  };
+
+  const getInitial = () => {
+    if (!user?.email) return '?';
+    return user.email.charAt(0).toUpperCase();
+  };
 
   useEffect(() => {
     if (isOpen) {
@@ -183,21 +196,91 @@ export default function NavBar() {
             <li>
               <ButtonLink href="/#formations" text="Prix" onClick={() => setIsOpen(false)} />
             </li>
-
-            <li>
-              <ButtonLink href="/contact" text="Contactez-nous" onClick={() => setIsOpen(false)} />
-            </li>
           </ul>
         </div>
 
-        {/* Right - Login button */}
-        <div className="flex justify-end">
-          <button
-            onClick={() => setIsLoginModalOpen(true)}
-            className="w-fit rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-nowrap transition-colors hover:bg-white hover:text-gray-600 md:text-base"
-          >
-            Se connecter
-          </button>
+        {/* Right - User menu or Login button */}
+        <div className="flex items-center justify-end">
+          {user ? (
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsUserMenuOpen(true)}
+              onMouseLeave={() => setIsUserMenuOpen(false)}
+            >
+              {/* Avatar avec initiale */}
+              <button
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#F35F4F] to-[#FFAD5A] text-white font-semibold text-base transition-all hover:scale-110 hover:shadow-lg"
+                aria-label="Menu utilisateur"
+              >
+                {getInitial()}
+              </button>
+
+              {/* Menu dropdown */}
+              <div
+                className={cn(
+                  'absolute right-0 top-12 min-w-48 max-w-xs rounded-lg bg-white shadow-xl transition-all duration-200 overflow-hidden',
+                  isUserMenuOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-2 invisible'
+                )}
+              >
+                <div className="py-2">
+                  <div className="px-4 py-2 text-sm text-gray-500 border-b border-gray-100 break-words">
+                    {user.email}
+                  </div>
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <rect x="3" y="3" width="7" height="7" />
+                      <rect x="14" y="3" width="7" height="7" />
+                      <rect x="14" y="14" width="7" height="7" />
+                      <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                      <polyline points="16 17 21 12 16 7" />
+                      <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Se déconnecter
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsLoginModalOpen(true)}
+              className="w-fit rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-nowrap transition-colors hover:bg-white hover:text-gray-600 md:text-base"
+            >
+              Se connecter
+            </button>
+          )}
         </div>
       </div>
 
@@ -253,17 +336,69 @@ export default function NavBar() {
             </Link>
           </div>
 
-          {/* Section - Connexion (mobile) */}
+          {/* Section - Connexion/Déconnexion (mobile) */}
           <div className="space-y-3 px-3 pb-4 md:hidden border-t border-[#656462] pt-4">
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                setIsLoginModalOpen(true);
-              }}
-              className="w-full rounded-full bg-gradient-to-br from-[#F35F4F] to-[#FFAD5A] px-4 py-2.5 text-sm font-medium text-white transition-all hover:scale-105"
-            >
-              Se connecter
-            </button>
+            {user ? (
+              <>
+                <div className="px-4 py-2 text-sm text-gray-300 border-b border-[#656462]">
+                  {user.email}
+                </div>
+                <Link
+                  href="/dashboard"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-3 w-full rounded-lg px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-white/10"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                  </svg>
+                  Dashboard
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-3 w-full rounded-lg px-4 py-2.5 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                  </svg>
+                  Se déconnecter
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  setIsLoginModalOpen(true);
+                }}
+                className="w-full rounded-full bg-gradient-to-br from-[#F35F4F] to-[#FFAD5A] px-4 py-2.5 text-sm font-medium text-white transition-all hover:scale-105"
+              >
+                Se connecter
+              </button>
+            )}
           </div>
         </div>
       </div>
