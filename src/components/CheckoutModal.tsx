@@ -101,8 +101,21 @@ export function CheckoutModal({ userId, onComplete, isUpgrade = false, currentAd
                 const basePlanPriceId = process.env.NEXT_PUBLIC_STRIPE_BASE_PLAN_PRICE_ID;
                 const additionalAccountPriceId = process.env.NEXT_PUBLIC_STRIPE_ADDITIONAL_ACCOUNT_PRICE_ID;
                 
+                console.log('🔑 Price IDs:', {
+                    base: basePlanPriceId,
+                    additional: additionalAccountPriceId,
+                    hasAdditional: !!additionalAccountPriceId
+                });
+                
                 if (!basePlanPriceId) {
-                    alert('Configuration Stripe manquante');
+                    alert('Configuration Stripe manquante - Plan de base');
+                    setLoading(false);
+                    return;
+                }
+                
+                if (!additionalAccountPriceId) {
+                    console.warn('⚠️ NEXT_PUBLIC_STRIPE_ADDITIONAL_ACCOUNT_PRICE_ID non défini !');
+                    alert('Configuration Stripe incomplète - Prix additionnel manquant');
                     setLoading(false);
                     return;
                 }

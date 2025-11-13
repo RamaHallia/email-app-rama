@@ -97,6 +97,12 @@ Deno.serve(async (req) => {
       );
     }
 
+    // Récupérer le nombre de comptes à ajouter depuis le body
+    const requestBody = await req.json();
+    const { additional_accounts = 1 } = requestBody;
+
+    console.log('📥 Upgrade - Comptes demandés:', additional_accounts);
+
     const additionalAccountPriceId = Deno.env.get('STRIPE_ADDITIONAL_ACCOUNT_PRICE_ID');
 
     if (!additionalAccountPriceId) {
@@ -115,7 +121,7 @@ Deno.serve(async (req) => {
       line_items: [
         {
           price: additionalAccountPriceId,
-          quantity: 1,
+          quantity: additional_accounts,  // ✅ Utilise le compteur !
         },
       ],
       success_url: `${req.headers.get('origin') || Deno.env.get('SUPABASE_URL')}/settings?upgrade=success`,
@@ -135,11 +141,12 @@ Deno.serve(async (req) => {
         metadata: {
           type: 'additional_account',
           user_id: user.id,
+          additional_accounts: additional_accounts,
         },
       },
     });
 
-    console.log(`Created separate checkout session for additional account: ${session.id}`);
+    console.log(`Created checkout session for ${additional_accounts} additional account(s): ${session.id}`);
 
     return new Response(
       JSON.stringify({

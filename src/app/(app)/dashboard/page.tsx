@@ -86,6 +86,7 @@ export default function Dashboard() {
 
         // Si onboarding pas terminé, ne rien vérifier
         if (!data?.is_configured) {
+            console.log('⏸️ Onboarding pas terminé');
             return;
         }
 
@@ -104,26 +105,33 @@ export default function Dashboard() {
         setHasActiveSubscription(!!hasActiveSubscription);
         setHasEverHadSubscription((allSubs?.length || 0) > 0);
 
+        console.log('💳 Abonnement actif:', hasActiveSubscription);
+
         // Si PAS d'abonnement → Ouvrir CheckoutModal
         if (!hasActiveSubscription) {
+            console.log('➡️ Pas d\'abonnement → CheckoutModal');
             setShowCheckout(true);
             setShowSetupEmail(false);
             return;
         }
 
         // 2. Si abonnement OK, vérifier si email configuré
-        const { data: emailData } = await supabase
+        const { data: emailData, error: emailError } = await supabase
             .from('email_configurations')
             .select('id')
             .eq('user_id', user.id)
-            .eq('is_connected', true)
-            .maybeSingle();
+            .eq('is_connected', true);
+
+        const hasEmails = emailData && emailData.length > 0;
+        console.log('📧 Nombre d\'emails configurés:', emailData?.length || 0);
 
         // Si PAS d'email → Ouvrir SetupEmailModal
-        if (!emailData) {
+        if (!hasEmails) {
+            console.log('➡️ Pas d\'email → SetupEmailModal');
             setShowCheckout(false);
             setShowSetupEmail(true);
         } else {
+            console.log('✅ Tout configuré, dashboard accessible');
             setShowCheckout(false);
             setShowSetupEmail(false);
         }
