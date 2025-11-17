@@ -6,11 +6,13 @@ import CardPack from "../../CardPack";
 import { useState } from "react";
 import { LoginModal } from "../../LoginModal";
 import { useRouter } from "next/navigation";
+import { HelpCircle, XCircle } from "lucide-react";
 
 export default function AppPack() {
     const router = useRouter();
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+    const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
 
     const handleStartClick = (planType: string) => {
         setSelectedPlan(planType);
@@ -39,7 +41,7 @@ export default function AppPack() {
                     loading="lazy"
                 />
 
-                <h2 className="font-thunder font-black text-7xl mb-16 text-center lg:mt-10">
+                <h2 className="font-thunder font-black text-7xl mb-16 text-center lg:mt-20">
                     Essayer, et commencez aujourd'hui
                 </h2>
 
@@ -114,10 +116,19 @@ export default function AppPack() {
                         ]}
                         price="20"
                         priceUnit="/par mois"
-                        buttonText="Commencer"
-                        onButtonClick={() => handleStartClick('custom_solution')}
+                        buttonText="Nous contacter"
+                        buttonHref="https://hallia.ai/contact"
+                        hidePrice={true}
                     />
                 </section>
+
+                <button
+                    onClick={() => setShowSubscriptionModal(true)}
+                    className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors mt-8 mb-16"
+                >
+                    <span className="text-sm">Aucun engagement – Abonnement mensuel</span>
+                    <HelpCircle className="w-5 h-4" />
+                </button>
             </section>
 
             {/* Modal de connexion/inscription */}
@@ -126,6 +137,97 @@ export default function AppPack() {
                 onClose={() => setShowLoginModal(false)}
                 onSignupSuccess={handleSignupSuccess}
             />
+
+            {/* Modal Conditions d'abonnement */}
+            {showSubscriptionModal && (
+                <div 
+                    className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm animate-in fade-in duration-300 flex items-center justify-center p-4"
+                    onClick={() => setShowSubscriptionModal(false)}
+                >
+                    <div
+                        className="relative bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Header */}
+                        <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between z-10">
+                            <div className="flex items-center gap-3">
+                               
+                                <h2 className="text-2xl font-bold text-gray-900">Conditions d'abonnement</h2>
+                            </div>
+                            <button
+                                onClick={() => setShowSubscriptionModal(false)}
+                                className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200/50 hover:bg-gray-300 transition-all duration-300 group"
+                            >
+                                <XCircle className="w-5 h-5 text-black group-hover:scale-110 transition-transform duration-300" />
+                            </button>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6 space-y-6">
+                            <p className="text-base text-gray-700">
+                                Nos applications sont disponibles sous forme d'abonnement mensuel ou annuel, selon les conditions ci-dessous.
+                            </p>
+
+                            <div className="space-y-5">
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900 mb-2">1. Durée et reconduction</h3>
+                                    <p className="text-base text-gray-700">
+                                        Chaque abonnement, qu'il soit mensuel ou annuel, est conclu pour la durée initialement choisie par le client. À l'issue de cette période, l'abonnement se renouvelle automatiquement par tacite reconduction pour une durée identique, sauf résiliation préalable du client.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900 mb-2">2. Paiement</h3>
+                                    <p className="text-base text-gray-700 mb-2">
+                                        <strong>Abonnement mensuel :</strong> le montant est facturé et payable d'avance chaque mois.
+                                    </p>
+                                    <p className="text-base text-gray-700">
+                                        <strong>Abonnement annuel :</strong> le montant est facturé et payable d'avance pour une période de 12 mois.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900 mb-2">3. Résiliation</h3>
+                                    <p className="text-base text-gray-700 mb-2">
+                                        Le client peut demander la résiliation de son abonnement à tout moment.
+                                    </p>
+                                    <p className="text-base text-gray-700 mb-2">
+                                        Pour un abonnement mensuel, la résiliation prend effet à la fin du mois en cours.
+                                    </p>
+                                    <p className="text-base text-gray-700 mb-2">
+                                        Pour un abonnement annuel, la résiliation prend effet à la fin de la période annuelle en cours.
+                                    </p>
+                                    <p className="text-base text-gray-700">
+                                        Aucun remboursement, même partiel, ne sera effectué pour une période déjà commencée, les abonnements étant payables d'avance.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900 mb-2">4. Modalités d'annulation</h3>
+                                    <p className="text-base text-gray-700 mb-2">
+                                        La demande de résiliation peut être effectuée :
+                                    </p>
+                                    <ul className="list-disc list-inside text-base text-gray-700 space-y-1 ml-4">
+                                        <li>Depuis l'espace client</li>
+                                    </ul>
+                                    <p className="text-base text-gray-700 mt-2">
+                                        Une confirmation de résiliation sera envoyée par email. Pour éviter le renouvellement automatique, la résiliation doit être faite avant la date d'échéance de la période en cours.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <h3 className="text-lg font-bold text-gray-900 mb-2">5. Réactivation</h3>
+                                    <p className="text-base text-gray-700">
+                                        Le client peut réactiver son abonnement à tout moment en souscrivant à nouveau via la plateforme.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            )}
         </>
     );
 }

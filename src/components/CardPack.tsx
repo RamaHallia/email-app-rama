@@ -20,6 +20,7 @@ interface CardPackProps {
     basePrice?: number; // Prix de base (premier email)
     additionalPrice?: number; // Prix par email additionnel
     localStorageKey?: string; // Clé pour le localStorage
+    hidePrice?: boolean; // Masquer le prix et le hr dotted
 }
 
 export default function CardPack({
@@ -50,6 +51,7 @@ export default function CardPack({
     basePrice = 29,
     additionalPrice = 19,
     localStorageKey = 'email_counter',
+    hidePrice = false,
 }: CardPackProps) {
     // État pour le compteur d'emails additionnels
     const [additionalEmails, setAdditionalEmails] = useState(0);
@@ -162,34 +164,36 @@ export default function CardPack({
 
 </div>
             {/* Ligne de séparation */}
-            <div
-                className="relative z-20 my-10"
-                style={{
-                    height: '1px',
-                    backgroundImage:
-                        'linear-gradient(to right, #d1d5db 0%, #d1d5db 50%, transparent 50%, transparent 100%)',
-                    backgroundSize: '20px 1px',
-                    backgroundRepeat: 'repeat-x',
-                }}
-            />
+            {!hidePrice && (
+                <div
+                    className="relative z-20 my-10"
+                    style={{
+                        height: '1px',
+                        backgroundImage:
+                            'linear-gradient(to right, #d1d5db 0%, #d1d5db 50%, transparent 50%, transparent 100%)',
+                        backgroundSize: '20px 1px',
+                        backgroundRepeat: 'repeat-x',
+                    }}
+                />
+            )}
 
             {/* Section prix et bouton */}
             <div className="relative z-20 space-y-5 px-10 pb-10">
-           
-
                 {/* Prix */}
-                <div className="space-y-2">
-                    <p className="text-4xl font-black font-thunder">
-                        {calculateTotalPrice()}€ <span className="text-lg font-normal">{priceUnit}</span>
-                    </p>
-                    
-                    {/* Détail du prix si compteur activé */}
-                    {enableCounter && additionalEmails > 0 && (
-                        <p className="text-sm text-gray-500">
-                            {basePrice}€ (base) + {additionalEmails} × {additionalPrice}€
+                {!hidePrice && (
+                    <div className="space-y-2">
+                        <p className="text-4xl font-black font-thunder">
+                            {calculateTotalPrice()}€ <span className="text-lg font-normal">{priceUnit}</span>
                         </p>
-                    )}
-                </div>
+                        
+                        {/* Détail du prix si compteur activé */}
+                        {enableCounter && additionalEmails > 0 && (
+                            <p className="text-sm text-gray-500">
+                                {basePrice}€ (base) + {additionalEmails} × {additionalPrice}€
+                            </p>
+                        )}
+                    </div>
+                )}
 
                 {/* Compteur d'emails additionnels */}
                 
@@ -200,6 +204,7 @@ export default function CardPack({
                     className="w-full rounded-full!"
                     onClick={onButtonClick}
                     href={buttonHref}
+                    target={buttonHref && buttonHref.startsWith('http') ? '_blank' : undefined}
                 >
                     {buttonText}
                 </CustomButton>

@@ -19,7 +19,7 @@ export default function AppNavbar() {
                     <div className="flex justify-between gap-8">
                         <Link href="/dashboard" className="text-xl flex items-center gap-2 font-bold">
                             <img src="/logo/logo-navbar.png" alt="Logo" />
-                            Automatic Email
+                            HALL MAIL
                         </Link>
                         <div className="flex items-center gap-4">
                             {user && (

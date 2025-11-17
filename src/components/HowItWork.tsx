@@ -4,7 +4,7 @@ export function HowItWorks() {
     return (
         <div className="mb-6 ">
             <h2 className="text-lg font-bold font-roboto text-gray-900 mb-5">
-            Comment fonctionne Automatic Email 
+            Comment fonctionne HALL MAIL 
            </h2>
            
             <div className="relative">

@@ -68,3 +68,4 @@ echo "   npx supabase functions deploy stripe-cancel-subscription"
 echo "   # ... et toutes les autres fonctions"
 
 
+

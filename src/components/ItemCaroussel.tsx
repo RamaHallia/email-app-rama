@@ -155,7 +155,7 @@ export default function ItemCarousel({
       <div className="mx-auto hidden h-[70vh] w-full px-8 lg:flex lg:gap-8">
         {/* Images Column */}
         <div className="flex w-[60%] gap-6">
-          <div className="relative flex flex-1 flex-col gap-4">
+          <div className="relative flex flex-1 flex-col gap-4 items-start">
             {visibleItems.map(({ item, index, position }) => {
               const isActive = position === 'current';
               const imageStyle = getImageStyle(position);
@@ -164,7 +164,7 @@ export default function ItemCarousel({
                 <button
                   key={`${item.id}-${index}`}
                   onClick={() => goToIndex(index)}
-                  className="relative overflow-hidden rounded-3xl shadow-2xl cursor-pointer group"
+                  className="relative overflow-hidden rounded-3xl  cursor-pointer group inline-block"
                   style={{
                     flex: imageStyle.flex,
                     opacity: imageStyle.opacity,
@@ -172,6 +172,7 @@ export default function ItemCarousel({
                     zIndex: imageStyle.zIndex,
                     filter: imageStyle.filter,
                     transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                    alignSelf: 'flex-start',
                   }}
                   aria-label={isActive ? `Image actuelle: ${item.title}` : `Aller à ${item.title}`}
                   aria-current={isActive}
@@ -180,7 +181,7 @@ export default function ItemCarousel({
                   <img
                     src={item.videoUrl}
                     alt={isActive ? item.alt : ''}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-auto block transition-transform duration-500 group-hover:scale-105 rounded-3xl shadow-lg"
                   />
                   {!isActive && (
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -294,24 +295,24 @@ export default function ItemCarousel({
                 <img
                   src={items[getCircularIndex(currentIndex - 1)].videoUrl}
                   alt=""
-                  className="aspect-video h-auto w-full object-cover grayscale"
+                  className="h-auto w-full grayscale"
                 />
               </button>
             </div>
 
             {/* Image centrale */}
-            <article className="w-[80%]">
+            <article className="w-[60%]">
               <div className="overflow-hidden rounded-2xl shadow-2xl">
                 <img
                   src={currentItem.videoUrl}
                   alt={currentItem.alt}
-                  className="aspect-video h-auto w-full object-cover transition-transform duration-500"
+                  className="h-auto w-full transition-transform duration-500"
                 />
               </div>
             </article>
 
             {/* Image suivante */}
-            <div className="w-[10%]">
+            <div className="w-[20%]">
               <button
                 onClick={handleNext}
                 className="relative block overflow-hidden rounded-lg opacity-40 shadow-lg transition-all duration-300 hover:opacity-70 active:scale-95"
@@ -321,7 +322,7 @@ export default function ItemCarousel({
                 <img
                   src={items[getCircularIndex(currentIndex + 1)].videoUrl}
                   alt=""
-                  className="aspect-video h-auto w-full object-cover grayscale"
+                  className="h-auto w-full grayscale"
                 />
               </button>
             </div>
@@ -373,7 +374,7 @@ export default function ItemCarousel({
           </button>
         </nav>
 
-        <div key={`mobile-content-${currentIndex}`} className="flex justify-center items-center">
+        <div key={`mobile-content-${currentIndex}`} className="flex justify-center items-center w-full">
           <div className="flex items-start gap-3 max-w-[80%]">
             <div
               className="content-animate content-icon flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl text-white shadow-lg"

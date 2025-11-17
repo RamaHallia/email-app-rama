@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { MacbookScrollSection } from '../../MacbookScroll';
 import { useState } from 'react';
 import { LoginModal } from '../../LoginModal';
+import AnimatedCards from '@/components/AnimatedCards';
 
 export default function Hero() {
   const [email, setEmail] = useState('');
@@ -32,9 +33,9 @@ md:h-[700px] md:w-[700px] xl:h-[900px] xl:w-[900px]" />
 
       <section className="mx-auto mt-4 flex min-h-screen w-full max-w-[1600px] items-center gap-12 px-6 pt-32 pb-16 sm:px-4 xl:flex-row xl:justify-between">
         <div className="space-y-12">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 font-roboto font-medium">
             <Image src={'assets/svg/hallia-orange-logo.svg'} height={48} width={48} alt="" />
-            <p>Automatisation IA</p>
+            <p>HALL MAIL</p>
           </div>
           <div className="font-thunder space-y-6 text-7xl font-semibold">
             <div className="space-y-2">
@@ -192,6 +193,12 @@ md:h-[700px] md:w-[700px] xl:h-[900px] xl:w-[900px]" />
 
 
       </section>
+
+      <section className="w-full my-50 flex justify-center">
+        <AnimatedCards />
+      </section>
+
+
 
       <MacbookScrollSection />
       

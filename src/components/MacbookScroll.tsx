@@ -19,7 +19,7 @@ export function MacbookScrollSection() {
                 />
 
                 {/* ✅ Carte en haut à droite de l'écran du MacBook */}
-                <div className="absolute max-xl:right-[0%] xl:top-[10%] xl:right-[15%] md:top-[20%] z-20 border rounded-2xl flex w-90 py-3 px-6 items-center gap-3 backdrop-blur-md shadow-lg animate-fade-in">
+                <div className="absolute max-xl:right-[0%] xl:top-[10%] xl:right-[15%] md:top-[20%] z-20 border rounded-2xl flex w-90 py-3 px-6 items-center gap-3 backdrop-blur-md bg-white/50 shadow-lg animate-fade-in">
                     <span className="font-roboto text-3xl font-semibold">
                         95%
                     </span>
@@ -32,15 +32,14 @@ export function MacbookScrollSection() {
                 </div>
 
                 {/* ✅ Carte en bas à gauche de l'écran du MacBook */}
-                <div className="absolute lg:left-[0%] top-[20%] xl:left-[15%] md:top-[30%] z-20 border rounded-2xl flex w-90 py-3 px-6 items-center gap-3 shadow-lg backdrop-blur-md  animate-fade-in">
+                <div className="absolute lg:left-[0%] top-[20%] xl:left-[15%] md:top-[30%] z-20 border rounded-2xl flex w-90 py-3 px-6 bg-white/50 items-center gap-3 shadow-lg backdrop-blur-md  animate-fade-in">
                 <span className="font-roboto text-3xl font-semibold">
                         98%
                     </span>
                     <span className="font-roboto">
-                        <p className="font-semibold">De précision</p>
+                        <p className="font-semibold">De classification correcte</p>
                         <p className="text-sm text-gray-600">
-                            Nos modèles d'IA uniques atteignent jusqu'à 98% de précision dans la classification des emails entrants.
-                        </p>
+                        Gagnez du temps et réduisez le stress. Notre IA suggère des réponses, permettant de traiter plus de 60% de vos mails sans modification.                        </p>
                     </span>
                 </div>
             </div>

@@ -43,7 +43,10 @@ export default function CustomButton({
     lg: 'px-8 py-4 text-lg gap-4',
   };
 
-  const combinedStyles = `${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`;
+  // Si un style personnalisé est fourni, ne pas appliquer les variantStyles mais garder text-white
+  const shouldUseVariantStyles = !style;
+  const textColorClass = style ? 'text-white' : '';
+  const combinedStyles = `${baseStyles} ${shouldUseVariantStyles ? variantStyles[variant] : textColorClass} ${sizeStyles[size]} ${className}`;
 
   const content = (
     <>
@@ -73,6 +76,7 @@ export default function CustomButton({
       <Link
         href={href}
         className={combinedStyles}
+        style={style}
         aria-label={ariaLabel || (typeof children === 'string' ? children : undefined)}
         onClick={onClick}
         target={target}

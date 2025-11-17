@@ -35,8 +35,8 @@ const inter = Inter({
 export const metadata: Metadata = {
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
     title: {
-        default: 'Automatic Email - Gestion Intelligente de vos Emails',
-        template: '%s | Automatic Email'
+        default: 'HALL MAIL - Gestion Intelligente de vos Emails',
+        template: '%s | HALL MAIL'
     },
    
     description: 'Solution de tri automatique et intelligent de vos emails. Gagnez du temps avec notre système de classification automatique des emails professionnels.',
@@ -59,21 +59,21 @@ export const metadata: Metadata = {
         type: 'website',
         locale: 'fr_FR',
         url: 'https://votre-domaine.com',
-        siteName: 'Automatic Email',
-        title: 'Automatic Email - Gestion Intelligente de vos Emails',
+        siteName: 'HALL MAIL',
+        title: 'HALL MAIL - Gestion Intelligente de vos Emails',
         description: 'Solution de tri automatique et intelligent de vos emails.',
         images: [
             {
                 url: '/og-image.jpg',
                 width: 1200,
                 height: 630,
-                alt: 'Automatic Email',
+                alt: 'HALL MAIL',
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Automatic Email',
+        title: 'HALL MAIL',
         description: 'Solution de tri automatique et intelligent de vos emails.',
         images: ['/twitter-image.jpg'],
         creator: '@votre_compte',
@@ -95,7 +95,7 @@ export const metadata: Metadata = {
         'script:ld+json': JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebApplication',
-            name: 'Automatic Email',
+            name: 'HALL MAIL',
             description: 'Solution de tri automatique et intelligent de vos emails',
             url: 'https://votre-domaine.com',
             applicationCategory: 'BusinessApplication',

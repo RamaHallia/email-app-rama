@@ -7,7 +7,6 @@ import Container from "./Container";
 import { Brain, Lightbulb, TrendingUp, List, Lock, Flame } from "lucide-react";
 
 interface ProductivityElementProps {
-  icon?: string;
     title: string;
     // subtitle: string;
     paragraph: string;
@@ -15,32 +14,31 @@ interface ProductivityElementProps {
 
 const productivityElement: ProductivityElementProps[] = [
     {
-        icon: "/assets/svg/check-white-orange.svg",
         title: "Automatisation intelligente",
-        paragraph: "L'IA rédige vos réponses automatiquement, elle comprend et s'adapte aux contextes identifié."
+        paragraph: "L’IA analyse le message reçu et étudie le contexte. Elle détermine si une réponse et nécessaire."
     },
     {
-        icon: "/assets/svg/check-white-orange.svg",
+        
         title: "Personnalisation avancée",
         paragraph: "Chaque message s'ajuste à votre style — professionnel ou informel. L'IA reste authentique, alignée à votre image."
     },
     {
-        icon: "/assets/svg/check-white-orange.svg",
+        
         title: "Productivité maximale",
-        paragraph: "Laissez l'IA gérer les emails courants pendant que vous traitez l'essentiel. Optimisez vos priorités en un clic."
+        paragraph: "Laissez l’IA gérer les emails courants pendant que vous traitez l’essentiel. Optimisez vos priorités en un clic."
     },
     {
-        icon: "/assets/svg/check-white-orange.svg",
-        title: "Déploiement instantané",
-        paragraph: "Connectez simplement votre boîte mail : tout est prêt en quelques minutes, sans aucune configuration technique."
+        
+        title: "Classification intelligente",
+        paragraph: "Emails triés instantanément (INFO, TRAITÉ, PUB) avec 98 % de précision. Concentrez-vous sur les messages clés"
     },
     {
-        icon: "/assets/svg/check-white-orange.svg",
+        
         title: "Contrôle total",
         paragraph: "Gardez la main : chaque réponse est proposée, jamais envoyée sans votre validation. Ajustez, validez, envoyez."
     },
     {
-        icon: "/assets/svg/check-white-orange.svg",
+        
         title: "Déploiement instantané",
         paragraph: "Connectez simplement votre boîte mail : tout est prêt en quelques minutes, sans aucune configuration technique."
     },
@@ -138,9 +136,9 @@ export function ProductivityCard() {
                           <IconComponent className="w-6 h-6 text-white" />
                         </div>
                       )}
-                      <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                        <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                        <p className="font-normal opacity-90">{element.paragraph}</p>
+                      <div className="font-roboto font-semibold text-white">
+                        <h4 className="mb-1 text-lg">{element.title}</h4>
+                        <p className="text-base font-normal opacity-90">{element.paragraph}</p>
                       </div>
                     </div>
                     {index < 5 && (
@@ -171,9 +169,9 @@ export function ProductivityCard() {
                             <IconComponent className="w-6 h-6 text-white" />
                           </div>
                         )}
-                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        <div className="font-roboto font-semibold text-white">
+                          <h4 className="mb-1 text-lg">{element.title}</h4>
+                          <p className="text-base font-normal opacity-90">{element.paragraph}</p>
                         </div>
                       </div>
                     </div>
@@ -200,9 +198,9 @@ export function ProductivityCard() {
                             <IconComponent className="w-6 h-6 text-white" />
                           </div>
                         )}
-                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        <div className="font-roboto font-semibold text-white">
+                          <h4 className="mb-1 text-lg">{element.title}</h4>
+                          <p className="text-base font-normal opacity-90">{element.paragraph}</p>
                         </div>
                       </div>
                     </div>
@@ -225,13 +223,13 @@ export function ProductivityCard() {
                     <div key={index + 4}>
                       <div className="flex flex-col gap-3">
                         {IconComponent && (
-                          <div className="w-12 h-12 rounded-lg border-3 border-white bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                          <div className="w-12 h-12 rounded-lg border-2 border-white bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
                             <IconComponent className="w-6 h-6 text-white" />
                           </div>
                         )}
-                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        <div className="font-roboto font-semibold text-white">
+                          <h4 className="mb-1 text-lg">{element.title}</h4>
+                          <p className="text-base font-normal opacity-90">{element.paragraph}</p>
                         </div>
                       </div>
                     </div>
@@ -254,9 +252,9 @@ export function ProductivityCard() {
                             <IconComponent className="w-6 h-6 text-white" />
                           </div>
                         )}
-                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        <div className="font-roboto font-semibold text-white">
+                          <h4 className="mb-1 text-lg">{element.title}</h4>
+                          <p className="text-base font-normal opacity-90">{element.paragraph}</p>
                         </div>
                       </div>
                     </div>
@@ -283,9 +281,9 @@ export function ProductivityCard() {
                             <IconComponent className="w-6 h-6 text-white" />
                           </div>
                         )}
-                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        <div className="font-roboto font-semibold text-white">
+                          <h4 className="mb-1 text-lg">{element.title}</h4>
+                          <p className="text-base font-normal opacity-90">{element.paragraph}</p>
                         </div>
                       </div>
                     </div>
