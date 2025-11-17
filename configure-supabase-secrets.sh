@@ -67,3 +67,4 @@ echo "   npx supabase functions deploy stripe-webhook"
 echo "   npx supabase functions deploy stripe-cancel-subscription"
 echo "   # ... et toutes les autres fonctions"
 
+

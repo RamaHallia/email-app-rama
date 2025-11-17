@@ -121,3 +121,4 @@ Pour vérifier qu'une fonction est bien déployée et fonctionne :
 - Les secrets sont **sécurisés** et ne sont accessibles que par les Edge Functions
 - Tu peux voir la liste des secrets configurés avec `npx supabase secrets list`
 
+

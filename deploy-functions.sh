@@ -54,3 +54,4 @@ echo ""
 echo "⚠️  N'oublie pas de configurer les secrets Supabase si ce n'est pas déjà fait :"
 echo "   ./configure-supabase-secrets.sh"
 
+

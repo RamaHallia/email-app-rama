@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Container from "./Container";
+import { Brain, Lightbulb, TrendingUp, List, Lock, Flame } from "lucide-react";
 
 interface ProductivityElementProps {
   icon?: string;
@@ -16,17 +17,17 @@ const productivityElement: ProductivityElementProps[] = [
     {
         icon: "/assets/svg/check-white-orange.svg",
         title: "Automatisation intelligente",
-        paragraph: "L’IA rédige vos réponses automatiquement, elle comprend et s’adapte aux contextes identifié."
+        paragraph: "L'IA rédige vos réponses automatiquement, elle comprend et s'adapte aux contextes identifié."
     },
     {
         icon: "/assets/svg/check-white-orange.svg",
         title: "Personnalisation avancée",
-        paragraph: "Chaque message s’ajuste à votre style — professionnel ou informel. L’IA reste authentique, alignée à votre image."
+        paragraph: "Chaque message s'ajuste à votre style — professionnel ou informel. L'IA reste authentique, alignée à votre image."
     },
     {
         icon: "/assets/svg/check-white-orange.svg",
         title: "Productivité maximale",
-        paragraph: "Laissez l’IA gérer les emails courants pendant que vous traitez l’essentiel. Optimisez vos priorités en un clic."
+        paragraph: "Laissez l'IA gérer les emails courants pendant que vous traitez l'essentiel. Optimisez vos priorités en un clic."
     },
     {
         icon: "/assets/svg/check-white-orange.svg",
@@ -43,6 +44,15 @@ const productivityElement: ProductivityElementProps[] = [
         title: "Déploiement instantané",
         paragraph: "Connectez simplement votre boîte mail : tout est prêt en quelques minutes, sans aucune configuration technique."
     },
+];
+
+const productivityIcons = [
+    Brain,
+    Lightbulb,
+    TrendingUp,
+    List,
+    Lock,
+    Flame,
 ];
 
 export function ProductivityCard() {
@@ -118,55 +128,57 @@ export function ProductivityCard() {
 
             {/* Vue Mobile (xs-sm) : 1 colonne avec dividers entre chaque */}
             <div className="md:hidden space-y-0" itemProp="text">
-              {productivityElement.map((element, index) => (
-                <div key={index}>
-                  <div className="flex flex-col gap-3">
-                    <Image
-                      src="/assets/svg/check-white-orange.svg"
-                      alt="Icône de validation"
-                      width={30}
-                      height={30}
-                      className="flex-shrink-0"
-                    />
-                    <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                      <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                      <p className="font-normal opacity-90">{element.paragraph}</p>
+              {productivityElement.map((element, index) => {
+                const IconComponent = productivityIcons[index];
+                return (
+                  <div key={index}>
+                    <div className="flex flex-col gap-3">
+                      {IconComponent && (
+                        <div className="w-12 h-12 rounded-lg border-2 border-white bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                          <IconComponent className="w-6 h-6 text-white" />
+                        </div>
+                      )}
+                      <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
+                        <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
+                        <p className="font-normal opacity-90">{element.paragraph}</p>
+                      </div>
                     </div>
+                    {index < 5 && (
+                      <div
+                        className="my-6 h-[1px]"
+                        style={{
+                          background:
+                            'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 25%, #FFFFFF 75%, rgba(255, 255, 255, 0) 100%)',
+                        }}
+                      />
+                    )}
                   </div>
-                  {index < 5 && (
-                    <div
-                      className="my-6 h-[1px]"
-                      style={{
-                        background:
-                          'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 25%, #FFFFFF 75%, rgba(255, 255, 255, 0) 100%)',
-                      }}
-                    />
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Vue Tablette (md) : 2 colonnes, 3 lignes avec dividers horizontaux */}
             <div className="hidden md:block lg:hidden px-10" itemProp="text">
               {/* Ligne 1 */}
               <div className="grid grid-cols-2 gap-6 mb-6">
-                {productivityElement.slice(0, 2).map((element, index) => (
-                  <div key={index}>
-                    <div className="flex flex-col gap-3">
-                      <Image
-                        src="/assets/svg/check-white-orange.svg"
-                        alt="Icône de validation"
-                        width={30}
-                        height={30}
-                        className="flex-shrink-0"
-                      />
-                      <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                        <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                        <p className="font-normal opacity-90">{element.paragraph}</p>
+                {productivityElement.slice(0, 2).map((element, index) => {
+                  const IconComponent = productivityIcons[index];
+                  return (
+                    <div key={index}>
+                      <div className="flex flex-col gap-3">
+                        {IconComponent && (
+                          <div className="w-12 h-12 rounded-lg border-2 border-white bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                            <IconComponent className="w-6 h-6 text-white" />
+                          </div>
+                        )}
+                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
+                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
+                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               <div
                 className="h-[1px] my-6"
@@ -178,23 +190,24 @@ export function ProductivityCard() {
 
               {/* Ligne 2 */}
               <div className="grid grid-cols-2 gap-6 mb-6">
-                {productivityElement.slice(2, 4).map((element, index) => (
-                  <div key={index + 2}>
-                    <div className="flex flex-col gap-3">
-                      <Image
-                        src="/assets/svg/check-white-orange.svg"
-                        alt="Icône de validation"
-                        width={30}
-                        height={30}
-                        className="flex-shrink-0"
-                      />
-                      <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                        <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                        <p className="font-normal opacity-90">{element.paragraph}</p>
+                {productivityElement.slice(2, 4).map((element, index) => {
+                  const IconComponent = productivityIcons[index + 2];
+                  return (
+                    <div key={index + 2}>
+                      <div className="flex flex-col gap-3">
+                        {IconComponent && (
+                          <div className="w-12 h-12 rounded-lg border-2 border-white bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                            <IconComponent className="w-6 h-6 text-white" />
+                          </div>
+                        )}
+                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
+                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
+                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               <div
                 className="h-[1px] my-6"
@@ -206,23 +219,24 @@ export function ProductivityCard() {
 
               {/* Ligne 3 */}
               <div className="grid grid-cols-2 gap-6">
-                {productivityElement.slice(4, 6).map((element, index) => (
-                  <div key={index + 4}>
-                    <div className="flex flex-col gap-3">
-                      <Image
-                        src="/assets/svg/check-white-orange.svg"
-                        alt="Icône de validation"
-                        width={30}
-                        height={30}
-                        className="flex-shrink-0"
-                      />
-                      <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                        <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                        <p className="font-normal opacity-90">{element.paragraph}</p>
+                {productivityElement.slice(4, 6).map((element, index) => {
+                  const IconComponent = productivityIcons[index + 4];
+                  return (
+                    <div key={index + 4}>
+                      <div className="flex flex-col gap-3">
+                        {IconComponent && (
+                          <div className="w-12 h-12 rounded-lg border-3 border-white bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                            <IconComponent className="w-6 h-6 text-white" />
+                          </div>
+                        )}
+                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
+                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
+                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
@@ -230,23 +244,24 @@ export function ProductivityCard() {
             <div className="hidden lg:block py-20" itemProp="text">
               {/* Ligne 1 */}
               <div className="grid grid-cols-3 gap-6 mb-6 pb-10">
-                {productivityElement.slice(0, 3).map((element, index) => (
-                  <div key={index} className={index === 1 ? 'px-6' : ''}>
-                    <div className="flex flex-col gap-3">
-                      <Image
-                        src="/assets/svg/check-white-orange.svg"
-                        alt="Icône de validation"
-                        width={30}
-                        height={30}
-                        className="flex-shrink-0"
-                      />
-                      <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                        <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                        <p className="font-normal opacity-90">{element.paragraph}</p>
+                {productivityElement.slice(0, 3).map((element, index) => {
+                  const IconComponent = productivityIcons[index];
+                  return (
+                    <div key={index} className={index === 1 ? 'px-6' : ''}>
+                      <div className="flex flex-col gap-3">
+                        {IconComponent && (
+                          <div className="w-12 h-12 rounded-lg border-2 border-white bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                            <IconComponent className="w-6 h-6 text-white" />
+                          </div>
+                        )}
+                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
+                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
+                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
               <div
                 className="h-[1px] my-6"
@@ -258,23 +273,24 @@ export function ProductivityCard() {
 
               {/* Ligne 2 */}
               <div className="grid grid-cols-3 gap-6">
-                {productivityElement.slice(3, 6).map((element, index) => (
-                  <div key={index + 3} className={index === 1 ? 'px-6' : ''}>
-                    <div className="flex flex-col gap-3">
-                      <Image
-                        src="/assets/svg/check-white-orange.svg"
-                        alt="Icône de validation"
-                        width={30}
-                        height={30}
-                        className="flex-shrink-0"
-                      />
-                      <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
-                        <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
-                        <p className="font-normal opacity-90">{element.paragraph}</p>
+                {productivityElement.slice(3, 6).map((element, index) => {
+                  const IconComponent = productivityIcons[index + 3];
+                  return (
+                    <div key={index + 3} className={index === 1 ? 'px-6' : ''}>
+                      <div className="flex flex-col gap-3">
+                        {IconComponent && (
+                          <div className="w-12 h-12 rounded-lg border-2 border-white bg-white/20 backdrop-blur-sm flex items-center justify-center flex-shrink-0">
+                            <IconComponent className="w-6 h-6 text-white" />
+                          </div>
+                        )}
+                        <div className="font-roboto text-xs font-semibold text-white sm:text-sm">
+                          <h4 className="mb-1 text-lg sm:text-xl">{element.title}</h4>
+                          <p className="font-normal opacity-90">{element.paragraph}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
