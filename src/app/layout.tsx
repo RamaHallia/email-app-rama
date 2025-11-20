@@ -1,25 +1,7 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import { Roboto, Inter } from 'next/font/google';
 import '../styles/globals.css';
 import { Providers } from './providers';
-
-const thunder = localFont({
-    src: [
-        {
-            path: './(fonts)/thunder-lc.ttf',
-            weight: '500',
-            style: 'normal',
-        },
-        {
-            path: './(fonts)/thunder-mediumlc.ttf',
-            weight: '600',
-            style: 'normal',
-        },
-    ],
-    variable: '--font-thunder',
-    display: 'swap',
-});
 
 const roboto = Roboto({
     subsets: ['latin'],
@@ -111,7 +93,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="fr">
-            <body className={`${thunder.variable} ${roboto.variable} ${inter.variable} antialiased`}>
+            <body className={`${roboto.variable} ${inter.variable} antialiased`}>
                 <Providers>
                     {children}
                 </Providers>
